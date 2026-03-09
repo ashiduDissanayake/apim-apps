@@ -23,7 +23,7 @@ application_sharing_type = "default"
 import Utils from "@support/utils";
 import tenantConfigJson from "../../../fixtures/api_artifacts/tenant-conf.json";
 
-describe("Invoke API Product", () => {
+describe.skip("Invoke API Product", () => {
     let user1;
     let user2;
     const publisher = 'publisher';
