@@ -162,9 +162,6 @@ describe.skip("Invoke API Product", () => {
         // Force clear cookies/sessions so SSO doesn't bypass the login screen
         cy.clearCookies();
         cy.clearLocalStorage();
-        cy.window().then((win) => {
-            win.sessionStorage.clear();
-        });
 
         // Delete Users
         cy.loginToPublisher(publisher, password);
@@ -174,5 +171,10 @@ describe.skip("Invoke API Product", () => {
         cy.deleteUser(user1);
         cy.visit(`/carbon/user/user-mgt.jsp`);
         cy.deleteUser(user2);
+    })
+
+    after(() => {
+        // Restore the default tenant configuration for other suites.
+        cy.updateTenantConfig(carbonUsername, carbonPassword, 'carbon.super', tenantConfigJson);
     })
 })
