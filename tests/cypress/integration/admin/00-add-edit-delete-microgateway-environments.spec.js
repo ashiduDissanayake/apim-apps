@@ -22,7 +22,7 @@ describe("Add Edit Delete Microgateway Environments", () => {
     const gatewayName = `MARKETING_STORE_${Date.now()}`;
     const gatewayDescription = 'marketing store';
 
-    before(function () {
+    beforeEach(function () {
         cy.loginToAdmin(carbonUsername, carbonPassword);
     })
 
@@ -33,7 +33,7 @@ describe("Add Edit Delete Microgateway Environments", () => {
             timeout: Cypress.config().largeTimeout,
         }).click();
 
-        cy.contains('button', 'Regular').click();
+        cy.contains('[role="radio"]', 'Universal Gateway - Classic').click();
         cy.get('input[name="name"]').type(gatewayName);
         cy.get('input[name="displayName"]').type(gatewayName);
         cy
