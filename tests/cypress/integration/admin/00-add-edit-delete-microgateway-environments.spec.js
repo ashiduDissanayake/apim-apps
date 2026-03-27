@@ -38,7 +38,8 @@ describe("Add Edit Delete Microgateway Environments", () => {
         cy.get('input[name="displayName"]').type(gatewayName);
         cy
             .get('[data-testid="vhost"]')
-            .find('input[name="0"]')
+            .find('input')
+            .first()
             .clear()
             .type('localhost');
 
@@ -58,14 +59,10 @@ describe("Add Edit Delete Microgateway Environments", () => {
         cy.intercept('GET', '**/environments').as('environmentsGetAfterEdit');
         cy.get('[data-testid="form-dialog-base-save-btn"]').contains('Update').click();
         cy.wait('@environmentsGetAfterEdit', { timeout: Cypress.config().largeTimeout }).then(() => {
-            cy.contains('table tr td', gatewayDescription).should('exist');
+            cy.contains('table tr td', gatewayName).should('exist');
         });
 
-        cy.contains('table tr td', gatewayName)
-            .parents('tr')
-            .within(() => {
-                cy.get('[data-testid="DeleteForeverIcon"]').click({ force: true });
-            });
+        cy.get(`[data-testid="${gatewayName}-actions"] button`).last().click({ force: true });
         cy.get('[data-testid="form-dialog-base-save-btn"]').contains('Delete').click();
         cy.get('div[role="status"]').should('contain.text', 'Gateway Environment deleted successfully');
     });

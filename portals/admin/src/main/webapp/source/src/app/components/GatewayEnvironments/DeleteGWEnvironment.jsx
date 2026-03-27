@@ -72,7 +72,7 @@ function Delete({ updateList, dataRow }) {
                 defaultMessage: 'Delete',
             })}
             icon={<DeleteForeverIcon />}
-            triggerIconProps={{ disabled: dataRow && dataRow.isReadOnly }}
+            triggerIconProps={{ disabled: dataRow && dataRow.isReadOnly, 'data-testid': 'delete-gateway-btn' }}
             formSaveCallback={formSaveCallback}
         >
             <DialogContentText>
